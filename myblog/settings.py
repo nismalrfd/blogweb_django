@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'core',
     'froala_editor',
+    'ckeditor',
     'rest_framework',
 
     "crispy_forms",

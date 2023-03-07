@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
-from froala_editor.fields import FroalaField
+# from froala_editor.fields import FroalaField
+from ckeditor.fields import RichTextField
 
 
 # Create your models here.
@@ -13,7 +14,7 @@ class Profile(models.Model):
 class BlogModel(models.Model):
     title = models.CharField(max_length=1000)
     user = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE)
-    content = FroalaField(null=True, blank=True)
+    content = RichTextField(null=True, blank=True)
     image = models.ImageField(upload_to='blog')
     created_at = models.DateTimeField(auto_now_add=True)
     upload_to = models.DateTimeField(auto_now=True)
