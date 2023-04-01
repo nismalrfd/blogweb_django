@@ -4,6 +4,23 @@
     <section class="position-relative py-6">
       <img class="bg-image" src="https://images.pexels.com/photos/1761279/pexels-photo-1761279.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="">
       <div class="container">
+
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="bg-white rounded-lg shadow p-5"><strong class="text-uppercase text-secondary d-inline-block mb-2 text-sm">Myblog.in</strong>
+                                 {% if request.user.is_authenticated %}
+
+                <a class="btn button-6" href="{% url 'logout' %}">Logout</a>
+                <a class="btn button-6" href="{% url 'add-blog' %}">add blog</a>
+                                {% else %}
+
+                <a class="btn button-6" href="{% url 'login' %}">Loog in</a>
+                                {% endif %}
+
+               </div>
+          </div>
+        </div>
+          <br>
         <div class="row">
           <div class="col-lg-6">
             <div class="bg-white rounded-lg shadow p-5"><strong class="text-uppercase text-secondary d-inline-block mb-2 text-sm">Featured</strong>
