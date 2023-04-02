@@ -1,4 +1,4 @@
-﻿asgiref==3.5.2
+asgiref==3.5.2
 automium==0.2.6
 automium-web==0.1.1
 autopep8==1.5.7
@@ -17,7 +17,6 @@ defusedxml==0.7.1
 distlib==0.3.6
 dj-database-url==0.5.0
 django-allauth==0.51.0
-django-ckeditor==20.1.1
 django-cors-headers==3.8.0
 django-crispy-forms==1.14.0
 django-filter==22.1
@@ -68,3 +67,4 @@ virtualenv==20.16.7
 wcwidth==0.2.5
 Werkzeug==2.2.2
 whitenoise==5.2.0
+
