@@ -25,7 +25,6 @@ django-jazzmin==2.6.0
 django-js-asset==2.0.0
 django-static-fontawesome==5.14.0.0
 djangorestframework==3.12.4
-feedback==0.1.post7
 filelock==3.8.0
 Flask==2.2.2
 form==0.0.1
