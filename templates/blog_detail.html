@@ -43,7 +43,7 @@
              {% if request.user.is_authenticated %}
         <form method="POST" class="mt-5 pt-5 mb-5 pb-5" enctype="multipart/form-data">
         {% csrf_token %}
-        <input type="text"  class="form-control" placeholder="Enter title" name="body">
+        <input type="text" required  class="form-control" placeholder="Enter title" name="body">
         <button type="submit" class="btn btn-primary mt-4">Comment</button>
 
          </form>

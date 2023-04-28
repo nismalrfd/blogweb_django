@@ -1,6 +1,5 @@
 from django.contrib.auth.models import User
 from django.db import models
-# from froala_editor.fields import FroalaField
 from froala_editor.fields import FroalaField
 
 
@@ -31,7 +30,7 @@ class BlogModel(models.Model):
 class Comment(models.Model):
     post = models.ForeignKey(BlogModel, related_name='comments', on_delete=models.CASCADE)
     name = models.ForeignKey(User, on_delete=models.CASCADE)
-    body = models.TextField()
+    body = models.TextField(null=False,blank=False)
     date_added = models.DateTimeField(auto_now_add=True)
 
 
