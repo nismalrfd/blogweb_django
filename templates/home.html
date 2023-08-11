@@ -44,7 +44,7 @@
             {% for blogs in blogs %}
           <div class="col-lg-4 col-sm-6 mb-4 hover-animate">
             <div class="card shadow border-0 h-100">
-              <a href="post.html">
+              <a href="{% url 'blog-details' blogs.id %}">
                 <img class="img-fluid card-img-top" src="/media/{{blogs.image}}" alt="..."/></a>
             <div class="card-body"><a class="text-uppercase text-muted text-sm letter-spacing-2" href="{% url 'blog-details' blogs.id %}">
               {{blogs.user.username}}
