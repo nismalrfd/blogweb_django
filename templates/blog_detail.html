@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 {% extends "base.html" %}
 
 {% block start %}
@@ -56,63 +56,4 @@
 
 
 
-=======
-{% extends "base.html" %}
-
-{% block start %}
-
-
-<section>
-    <div class="container">
-       
-        <div class="row text-center">
-            <div class="col-xl-10 mx-auto"><img class="img-fluid mb-5"
-                    src="/media/{{blog_obj.image}}"
-                    alt=""></div>
-        </div>
-        <div class="row">
-            <div class="col-xl-8 col-lg-10 mx-auto">
-                <div class="text-content">
-                    {{blog_obj.content|safe}}
-                </div>
-            </div>
-        </div>
-         <form method="POST">
-                {% csrf_token %}
-                  {% if msg %}
-                <button style="background-color: white;border: none;"><i class="bi bi-heart-fill"></i></button>
-                {% else %}
-                <button style="background-color: white;border: none;"><i class="bi bi-heart" ></i></button>
-                  {% endif %}
-
-              </form>
-        <small><b>{{blog_obj.likes.count}}</b>likes</small>
-        <br>
-        <h6>{{comments.count}} Comments....</h6>
-
-        <div style="height: 300px; overflow: auto;width:250px">
-        {% for comments in comments %}
-        <small> {{comments.name}}</small>
-        <h6> {{comments.body}}</h6>
-        <small> {{comments.date_added}}</small>
-        <br>
-        <hr>
-        {% endfor %}
-        </div>
-             {% if request.user.is_authenticated %}
-        <form method="POST" class="mt-5 pt-5 mb-5 pb-5" enctype="multipart/form-data">
-        {% csrf_token %}
-        <input type="text" required  class="form-control" placeholder="Enter title" name="body">
-        <button type="submit" class="btn btn-primary mt-4">Comment</button>
-
-         </form>
-
-        {% endif %}
-
-    </div>
-</section>
-
-
-
->>>>>>> 542e2421e96ec34d149625e76b056309bf8263d7
 {% endblock %}
