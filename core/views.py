@@ -10,6 +10,7 @@ from core.models import BlogModel, Comment
 # Create your views here.
 def home(request):
     blogs = BlogModel.objects.all().order_by('-created_at')
+    latest_post = BlogModel.objects.latest('created_at') if BlogModel.objects.exists() else None
     search_in = request.GET.get('q')
     if search_in:
         blogs = BlogModel.objects.filter(title__icontains=search_in)
@@ -17,7 +18,7 @@ def home(request):
         blogs = BlogModel.objects.all()
         search_in = ''
 
-    context = {'blogs': blogs,'search_in': search_in}
+    context = {'blogs': blogs,'search_in': search_in,'latest_post':latest_post}
     return render(request, 'home.html', context)
 
 
