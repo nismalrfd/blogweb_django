@@ -219,3 +219,11 @@ def update_blog(request, id):
 
     context = {'form': form}
     return render(request, 'update_blog.html', context)
+
+from django.http import JsonResponse
+
+def search_view(request):
+    query = request.GET.get('q')
+    results = BlogModel.objects.filter(title__icontains=query)
+    data = [{'title': item.title, 'description': item.description} for item in results]
+    return JsonResponse(data, safe=False)
