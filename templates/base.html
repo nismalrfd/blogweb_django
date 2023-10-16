@@ -57,6 +57,35 @@
    
     
   </body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#search-input').on('keyup', function () {
+            var query = $(this).val();
+            if (query) {
+                $.ajax({
+                    url: '/search/',
+                    data: { 'q': query },
+                    dataType: 'json',
+                    success: function (data) {
+                        var results = $('#search-results');
+                        results.empty();
+                        if (data.length > 0) {
+                            $.each(data, function (index, item) {
+                                results.append('<div>' + item.title + ' - ' + item.description + '</div>');
+                            });
+                        } else {
+                            results.html('<p>No results found.</p>');
+                        }
+                    }
+                });
+            } else {
+                $('#search-results').empty();
+            }
+        });
+    });
+</script>
+
 
 
 </html>
