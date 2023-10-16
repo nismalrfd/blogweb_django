@@ -3,5 +3,5 @@
 #
 
 ### App Preview :
-projects  available at [blogweb-mrvk.onrender.com](https://myblog-n5bc.onrender.com)
+projects  available at [myblog-n5bc.onrender.com](https://myblog-n5bc.onrender.com)
 
