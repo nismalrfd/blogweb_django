@@ -1,22 +1,28 @@
 {% extends "base.html" %}
-{% load crispy_forms_tags %}
 
 {% block start %}
-<div class="container mt-5">
+<div class="container mt-5 ml-16">
     {% if request.user.is_authenticated %}
-        <a href="{% url 'see-blog' %}" class="btn btn-warning">View Your blogs</a>
+        <a href="{% url 'see-blog' %}" class="btn bg-yellow-500 hover:bg-yellow-600 text-white rounded-lg px-4 py-2 mb-4">
+            View Your blogs
+        </a>
     {% endif %}
 
-    <form method="POST" class="mt-5 pt-5 mb-5 pb-5" enctype="multipart/form-data">
+    <form method="POST" class="mt-5 pt-5 mb-5 pb-5 grid grid-cols-1 md:grid-cols-2 gap-4 mx-auto">
         {% csrf_token %}
-        <div class="row">
-            <div class="col-md-12">
-                {{form.media}}
-                {{form.as_p}}
-            </div>
+        <div class="col-span-2">
+            {{ form.media }}
+            {{form.as_p}}
+
         </div>
 
-        <button type="submit" class="btn btn-primary mt-4">Create Blog</button>
+
+        <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white rounded-lg px-4 py-2 mt-4">
+            Create Blog
+        </button>
     </form>
 </div>
+
+
+
 {% endblock %}

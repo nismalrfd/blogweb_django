@@ -1,77 +1,63 @@
 {% extends "base.html" %}
 
 {% block start %}
-<section class="position-relative py-6">
-  <img class="bg-image" src="https://images.pexels.com/photos/1761279/pexels-photo-1761279.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-6">
-        <div class="bg-white rounded-lg shadow p-5">
-          <strong class="text-uppercase text-secondary d-inline-block mb-2 text-sm">Myblog.in</strong>
-          {% if request.user.is_authenticated %}
-            <a class="btn button-6" href="{% url 'logout' %}">Logout</a>
-            <a class="btn button-6" href="{% url 'add-blog' %}">Add Blog</a>
-          {% else %}
-            <a class="btn button-6" href="{% url 'login' %}">Log in</a>
-          {% endif %}
-        </div>
-      </div>
-    </div>
-    <br>
-    <div class="row">
-      <div class="col-lg-6">
-      {% if latest_post %}
-        <div class="bg-white rounded-lg shadow p-5">
-          <strong class="text-uppercase text-secondary d-inline-block mb-2 text-sm">Featured</strong>
-          <h2 class="mb-3">Escape the city today</h2>
-          <p class="text-muted">{{ latest_post.content|safe }}</p>
-        </div>
-        {% endif %}
-        <br>
-        <form method="GET" action="{% url 'home' %}">
-          <input type="search" value="{{ search_in }}" id="search-input" class="form-control" placeholder="Search ..." name="q">
+<html lang="en">
+
+
+    <!-- Header Section -->
+  <header class="py-16 bg-cover bg-center bg-gradient-to-b from-gray-400 via-gray-600 to-gray-800 text-white">
+        <div class="container mx-auto text-center">
+            <h1 class="text-4xl font-bold mb-4">Welcome to Your Blog</h1>
+            <p class="text-xl">Discover amazing stories, articles, and more.</p>
+          <form method="GET" action="{% url 'home' %}" class="mt-8">
+            <input type="text" name="q" value="{{ search_in }}" placeholder="Search for articles..." class="w-full md:w-1/2 px-4 py-2 rounded-lg focus:outline-none focus:ring focus:border-gray-300 bg-white text-gray-800">
+            <button type="submit" class="bg-blue-500 text-white rounded-lg px-4 py-2 hover:bg-blue-600 ml-2 focus:outline-none focus:ring focus:border-gray-300">Search</button>
         </form>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="py-6">
-  <div class="container">
-    <div class="row mb-5">
-      <!-- blog item-->
-      {% for blog in blogs %}
-      <div id="search-results"></div>
-      <div class="col-lg-4 col-sm-6 mb-4 hover-animate">
-        <div class="card shadow border-0 h-100">
-          <a href="{% url 'blog-details' blog.id %}">
-            <img class="img-fluid card-img-top" src="/media/{{ blog.image }}" alt="...">
-          </a>
-          <div class="card-body">
-            <a class="text-uppercase text-muted text-sm letter-spacing-2" href="{% url 'blog-details' blog.id %}">
-              {{ blog.user.username }}
-            </a>
-            <h5 class="my-2">
-              <a class="text-dark" href="{% url 'blog-details' blog.id %}">
-                {{ blog.title }}
-              </a>
-
-            </h5>
-
-            <p class="text-gray-500 text-sm my-3"><i class="far fa-clock mr-2"></i>{{ blog.created_at }}</p><br>
-            <small><b>{{ blog.likes.count }} likes</b></small>
-            <small><b>{{ blog.comments.count }} comments</b></small>
-            {% if request.user == blog.user %}
-            <br>
-                <small><a href="{% url 'update-blog' blog.id %}" class="btn">Update</a>
-           </small>{% endif %}
-          </div>
         </div>
-      </div>
-      {% empty %}
-      <h3 style="text-align: center;">NO results found..!</h3>
-      {% endfor %}
+    </header>
+
+    <!-- Blog Section -->
+<section class="py-8">
+    <div class="container mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <!-- Blog Cards (Repeat for each blog post) -->
+        {% for blog in blogs %}
+        <div class="bg-white rounded-lg shadow-lg">
+            <a href="{% url 'blog-details' blog.id %}">
+                <img src="/media/{{ blog.image }}" alt="Blog 1" class="w-full h-40 object-cover">
+            </a>
+            <div class="p-4">
+                <h2 class="text-lg font-semibold text-gray-800 mb-2">{{ blog.title }}</h2>
+                <span>{{ blog.user.username }}</span>
+                <p class="text-gray-600 text-sm">{{ blog.created_at }}</p>
+                <div class="flex justify-between mt-4">
+                    <div class="flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M4.293 7.293a1 1 0 011.414-1.414L10 10.586l4.293-4.293a1 1 0 111.414 1.414L11.414 12l4.293 4.293a1 1 0 01-1.414 1.414L10 13.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 12 4.293 7.707a1 1 0 01-1.414-1.414z" clip-rule="evenodd"/>
+                        </svg>
+                        {{ blog.likes.count }}
+                    </div>
+                    <div class="flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 3a7 7 0 017 7c0 3.866-3.134 7-7 7s-7-3.134-7-7a7 7 0 017-7zm0 2a5 5 0 00-5 5c0 2.761 2.239 5 5 5a5 5 0 005-5 5 5 0 00-5-5zm0 2a3 3 0 00-3 3c0 1.658 1.342 3 3 3a3 3 0 003-3 3 3 0 00-3-3z" clip-rule="evenodd"/>
+                        </svg>
+                        {{ blog.comments.count }}
+                    </div>
+                </div>
+                <div class="mt-4">
+                    {% if request.user == blog.user %}
+                    <a href="{% url 'update-blog' blog.id %}" class="bg-blue-500 text-white rounded-full px-4 py-2 hover:bg-blue-600">Update</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <h3 style="text-align: center;">NO results found..!</h3>
+        {% endfor %}
     </div>
-  </div>
 </section>
+
+
+    <!-- Footer -->
+
+
 {% endblock %}

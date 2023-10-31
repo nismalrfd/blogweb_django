@@ -1,40 +1,36 @@
 {% extends "base.html" %}
 
 {% block start %}
+<section class="bg-gray-100 min-h-screen flex items-center justify-center">
+  <div class="container mx-auto">
+    <div class="w-full max-w-4xl bg-white rounded-lg shadow p-6 mx-4 sm:mx-auto">
 
+      <h2 class="text-2xl font-semibold mb-4">Your Blog Posts</h2>
 
-<section class="mt-5 pt-5">
-    <div class="container">
-       
-        <table class="table">
+      <table class="min-w-full">
         <thead>
           <tr>
-            <th scope="col">#</th>
-            <th scope="col">Blog title</th>
-            <th scope="col">Created at</th>
-            <th scope="col">Action</th>
+            <th class="py-2 px-3 bg-gray-200 text-left">#</th>
+            <th class="py-2 px-3 bg-gray-200 text-left">Blog Title</th>
+            <th class="py-2 px-3 bg-gray-200 text-left">Created At</th>
+            <th class="py-2 px-3 bg-gray-200 text-left">Action</th>
           </tr>
         </thead>
         <tbody>
-        {% for blog in blog_objs %}
-          <tr>
-            <th scope="row">{{forloop.counter}}</th>
-            <td>{{blog.title}}</td>
-            <td>{{blog.created_at}}</td>
-            <td>
-                <a href="{% url 'update-blog' blog.id %}" class="btn btn-success">Update</a>
-                <a href="{% url 'delete-blog' blog.id  %}" class="btn btn-danger">Delete</a>
-                
+          {% for blog in blog_objs %}
+          <tr class="hover:bg-gray-50 transition-all">
+            <td class="py-2 px-3">{{ forloop.counter }}</td>
+            <td class="py-2 px-3">{{ blog.title }}</td>
+            <td class="py-2 px-3">{{ blog.created_at }}</td>
+            <td class="py-2 px-3">
+              <a href="{% url 'update-blog' blog.id %}" class="bg-green-500 hover:bg-green-600 text-white rounded-md px-4 py-2 mx-1">Update</a>
+              <a href="{% url 'delete-blog' blog.id %}" class="bg-red-500 hover:bg-red-600 text-white rounded-md px-4 py-2 mx-1">Delete</a>
             </td>
           </tr>
-        {% endfor %}
-
-          </tbody>
-          </table>
-          
+          {% endfor %}
+        </tbody>
+      </table>
     </div>
+  </div>
 </section>
-
-
-
 {% endblock %}
