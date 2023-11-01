@@ -62,11 +62,17 @@ def register_page(request):
         try:
             username = request.POST.get('username')
             password = request.POST.get('password')
+            confirm_password = request.POST.get('confirm_password')
+
 
             user_obj = User.objects.filter(username=username)
             if user_obj.exists():
                 messages.warning(request, 'username already exists')
                 return redirect('/register')
+            if confirm_password and password and password != confirm_password:
+                messages.warning(request,'Password not match..')
+                return redirect('/register')
+
             user_obj = User.objects.create(username=username)
             user_obj.set_password(password)
             user_obj.save()
