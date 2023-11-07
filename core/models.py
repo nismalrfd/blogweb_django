@@ -15,7 +15,6 @@ class BlogModel(models.Model):
     user = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE)
     content = FroalaField(null=True, blank=True)
     image = models.ImageField(upload_to='blog',null=True,default='def.jpg')
-
     created_at = models.DateTimeField(auto_now_add=True)
     upload_to = models.DateTimeField(auto_now=True)
     likes = models.ManyToManyField(User,related_name='post')

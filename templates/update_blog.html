@@ -1,38 +1,28 @@
 {% extends "base.html" %}
 
 {% block start %}
+<div class="container mx-auto mt-5 flex flex-col items-center">
+    <a href="{% url 'see-blog' %}" class="btn bg-yellow-500 hover:bg-yellow-600 text-white mb-4 rounded-md py-3 px-6">View Your Blogs</a>
 
-
-<div class="container mt-5">
-
-    <a href="{% url 'see-blog' %}" class="btn btn-warning">View Your blogs</a>
-
-    <form method="POST" class="mt-5 pt-5 mb-5 pb-5"
-          enctype="multipart/form-data" >
+    <form method="POST" class="mt-5 pt-5 mb-5 pb-5" enctype="multipart/form-data">
         {% csrf_token %}
-        <div class="row">
-            <div class="col-md-12">
-                <label>Enter blog title</label>
-<!--                <input type="text" value="{{blog_obj.title}}" class="form-control" placeholder="Enter title" name="title">-->
+        <div class="max-w-md w-full">
+            <div class="mb-4">
+                <label class="block text-lg text-gray-700">Enter Blog Title</label>
             </div>
 
-            <div class="col-md-12">
-                {{form.media}}
+            <div class="mb-4">
+                {{ form.media }}
                 {{form.as_p}}
+
+
             </div>
 
-            <div class="col-md-12">
+            <div class="mb-4">
+          </div>
 
-<!--                <input type="file" name="image" class="form-control" >-->
-                </div>
-
+            <button type="submit" class="btn bg-blue-500 hover:bg-blue-600 text-white rounded-lg px-4 py-2 w-full">Create Blog</button>
         </div>
-
-        <button type="submit" class="btn btn-primary mt-4">Create Blog</button>
-
     </form>
-
 </div>
-
-
 {% endblock %}
