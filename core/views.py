@@ -30,7 +30,7 @@ def logout_page(request):
 def login_page(request):
     if request.method == 'POST':
         try:
-            username = request.POST.get('username')
+            username = request.POST.get('username').lower()
             password = request.POST.get('password')
 
             from django.contrib.auth.models import User
@@ -60,7 +60,7 @@ def login_page(request):
 def register_page(request):
     if request.method == 'POST':
         try:
-            username = request.POST.get('username')
+            username = request.POST.get('username').lower()
             password = request.POST.get('password')
             confirm_password = request.POST.get('confirm_password')
 
