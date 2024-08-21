@@ -14,6 +14,7 @@
                 <form method="POST" class="mr-4">
                     {% csrf_token %}
                     {% if msg %}
+                    {% if request.user.is_authenticated %}
                     <button class="bg-red-500 text-white rounded-full px-4 py-2 focus:outline-none hover:bg-red-600">
                         <i class="bi bi-heart-fill text-xl"><small>Unlike</small></i>
                     </button>
@@ -21,6 +22,7 @@
                     <button class="bg-red-500 text-white rounded-full px-4 py-2 focus:outline-none hover:bg-red-600">
                         <i class="bi bi-heart text-xl"><small>Like</small></i>
                     </button>
+                    {% endif %}
                     {% endif %}
                 </form>
                 <small class="text-gray-600"><b>{{blog_obj.likes.count}}</b> Likes</small>

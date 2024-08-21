@@ -112,6 +112,8 @@ def blog_details(request, id):
                 else:
                     blog_obj.likes.add(user)
                     msg = True
+            else:
+                return redirect('login_page')
 
 
             message = Comment.objects.create(
