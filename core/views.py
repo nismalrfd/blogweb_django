@@ -2,6 +2,8 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, get_object_or_404
+from django.http import JsonResponse
+
 
 from core.form import CommentForm, BlogForm
 from core.models import BlogModel, Comment
@@ -11,15 +13,24 @@ from core.models import BlogModel, Comment
 def home(request):
     blogs = BlogModel.objects.all().order_by('-created_at')
     latest_post = BlogModel.objects.latest('created_at') if BlogModel.objects.exists() else None
-    search_in = request.GET.get('q')
-    if search_in:
-        blogs = BlogModel.objects.filter(title__icontains=search_in)
-    else:
-        blogs = BlogModel.objects.all()
-        search_in = ''
+    # search_in = request.GET.get('q')
+    # if search_in:
+    #     blogs = BlogModel.objects.filter(title__icontains=search_in)
+    # else:
+    #     blogs = BlogModel.objects.all()
+    #     search_in = ''
 
-    context = {'blogs': blogs,'search_in': search_in,'latest_post':latest_post}
+    context = {'blogs': blogs,'latest_post':latest_post}
     return render(request, 'home.html', context)
+
+def autocomplete(request):
+    if 'term' in request.GET:
+        qs=BlogModel.objects.filter(title__icontains=request.GET.get('term'))
+        titles=list()
+        for prodect in qs:
+            titles.append(prodect.title)
+            return JsonResponse(titles,safe=False)
+    return render(request,'home.html')
 
 
 def logout_page(request):

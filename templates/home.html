@@ -8,8 +8,9 @@
     <div class="container mx-auto text-center">
         <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">Welcome to Your Blog</h1>
         <p class="text-xl md:text-2xl">Discover amazing stories, articles, and more.</p>
+        
         <form method="GET" action="{% url 'home' %}" class="mt-8">
-            <input type="text" name="q" value="{{ search_in }}" placeholder="Search for articles..."
+            <input type="text"id="tags" name="tags" value="{{ search_in }}" placeholder="Search for articles..."
                 class="w-full md:w-1/2 px-4 py-2 rounded-lg focus:outline-none focus:ring focus:border-gray-300 bg-white text-gray-800">
             <button type="submit"
                 class="bg-blue-500 text-white rounded-lg px-4 py-2 md:py-3 hover:bg-blue-600 ml-2 focus:outline-none focus:ring focus:border-gray-300">Search</button>
