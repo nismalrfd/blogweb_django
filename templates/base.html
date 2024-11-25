@@ -5,42 +5,67 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>My Blog</title>
-    
+
+    <!-- CSS Links -->
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.15/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
+    <!-- JS Links -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
-<body>
+<body class="bg-gray-100 font-sans">
+
     <!-- Navbar -->
-    <nav class="bg-gray-800 p-4">
-        <div class="container mx-auto flex justify-between items-center">
-            <a href="" class="text-white text-2xl font-semibold">My Blog</a>
-            <div class="flex items-center">
+    <nav class="bg-gray-900 shadow-lg">
+        <div class="container mx-auto px-4 flex justify-between items-center py-4">
+            <!-- Logo -->
+            <a href="{% url 'home' %}" class="text-3xl font-extrabold text-white tracking-wider">My Blog</a>
+
+            <!-- Navigation Links -->
+            <div class="flex items-center space-x-6">
                 {% if request.user.is_authenticated %}
-                    <a href="{% url 'logout' %}" class="text-white">Logout</a> /
-                    <a href="{% url 'add-blog' %}" class="text-white">Add Blog</a>
+                    <a href="{% url 'add-blog' %}" 
+                       class="text-white hover:text-blue-400 transition-all text-lg font-medium">
+                        <i class="fas fa-plus-circle"></i> Add Blog
+                    </a>
+                    <a href="{% url 'logout' %}" 
+                       class="text-white hover:text-red-400 transition-all text-lg font-medium">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
                 {% else %}
-                    <a href="{% url 'register' %}" class="text-white mr-4">Sign Up</a>
-                    <a href="{% url 'login' %}" class="text-white mr-4">Login</a>
+                    <a href="{% url 'login' %}" 
+                       class="text-white hover:text-green-400 transition-all text-lg font-medium">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </a>
+                    <a href="{% url 'register' %}" 
+                       class="text-white hover:text-yellow-400 transition-all text-lg font-medium">
+                        <i class="fas fa-user-plus"></i> Sign Up
+                    </a>
                 {% endif %}
             </div>
         </div>
     </nav>
 
-    <!-- Main content block -->
-    {% block start %}
-    <!-- Your content goes here -->
-    {% endblock %}
+    <!-- Main Content -->
+    <main class="py-8">
+        {% block start %}
+        <!-- Your content goes here -->
+        {% endblock %}
+    </main>
 
     <!-- Footer -->
-    <footer class="py-4 bg-gray-800 text-gray-300 mt-auto">
+    <footer class="py-4 bg-gray-900 text-gray-400">
         <div class="container mx-auto text-center">
-            <p class="text-sm">&copy; <script>document.write(new Date().getFullYear())</script> My Blog. All rights reserved.</p>
+            <p class="text-sm font-light">
+                &copy; <script>document.write(new Date().getFullYear())</script> 
+                <span class="font-semibold text-white">My Blog</span>. All rights reserved.
+            </p>
         </div>
     </footer>
 
+    <!-- Autocomplete Script -->
     <script>
         $(function() {
             $("#tags").autocomplete({

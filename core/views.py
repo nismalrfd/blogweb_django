@@ -10,18 +10,31 @@ from core.models import BlogModel, Comment
 
 
 # Create your views here.
-def home(request):
-    blogs = BlogModel.objects.all().order_by('-created_at')
-    latest_post = BlogModel.objects.latest('created_at') if BlogModel.objects.exists() else None
-    # search_in = request.GET.get('q')
-    # if search_in:
-    #     blogs = BlogModel.objects.filter(title__icontains=search_in)
-    # else:
-    #     blogs = BlogModel.objects.all()
-    #     search_in = ''
+from django.db.models import Q
 
-    context = {'blogs': blogs,'latest_post':latest_post}
+def home(request):
+    # Fetch all blogs, ordered by creation date
+    blogs = BlogModel.objects.all().order_by('-created_at')
+    
+    # Fetch the latest post, if it exists
+    latest_post = BlogModel.objects.latest('created_at') if BlogModel.objects.exists() else None
+    
+    # Handle the search functionality
+    search_in = request.GET.get('q', '').strip()  # Fetch search query and remove extra spaces
+    if search_in:
+        # Search in title and content fields using Q objects for flexible matching
+        blogs = BlogModel.objects.filter(
+            Q(title__icontains=search_in) | Q(content__icontains=search_in)
+        ).order_by('-created_at')
+
+    # Context for rendering the template
+    context = {
+        'blogs': blogs,
+        'latest_post': latest_post,
+        'search_query': search_in,  # Pass the search query back to the template
+    }
     return render(request, 'home.html', context)
+
 
 def autocomplete(request):
     if 'term' in request.GET:
