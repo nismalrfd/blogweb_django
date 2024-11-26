@@ -3,49 +3,65 @@
 {% block start %}
 <section class="bg-white py-8">
     <div class="container mx-auto p-4 shadow-md rounded-lg">
-        <div class="text-center">
-            <img class="w-full max-w-md mx-auto mb-4" src="/media/{{blog_obj.image}}" alt="">
+        <!-- Blog Image Section -->
+        <div class="text-center mb-6">
+            <img class="w-full max-w-md mx-auto rounded-lg" src="/media/{{blog_obj.image}}" alt="Blog Image">
         </div>
+
+        <!-- Blog Content Section -->
         <div class="mx-auto lg:w-8/12 md:w-10/12">
-            <div class="text-content mb-4">
-                {{blog_obj.content|safe}}
+            <div class="text-content mb-6">
+                {{ blog_obj.content|safe }}
             </div>
-            <div class="flex items-center mb-4">
+
+            <!-- Like Button Section -->
+            <div class="flex items-center mb-6">
                 <form method="POST" class="mr-4">
                     {% csrf_token %}
                     {% if msg %}
-                    <button class="bg-red-500 text-white rounded-full px-4 py-2 focus:outline-none hover:bg-red-600">
-                        <i class="bi bi-heart-fill text-xl"></i>
+                    {% if request.user.is_authenticated %}
+                    <button class="flex items-center bg-red-500 text-white rounded-full px-4 py-2 focus:outline-none hover:bg-red-600">
+                        <i class="fa fa-heart text-lg mr-2"></i>
+                        <span>Unlike</span>
                     </button>
                     {% else %}
-                    <button class="bg-red-500 text-white rounded-full px-4 py-2 focus:outline-none hover:bg-red-600">
-                        <i class="bi bi-heart text-xl"></i>
+                    <button class="flex items-center bg-red-500 text-white rounded-full px-4 py-2 focus:outline-none hover:bg-red-600">
+                        <i class="fa fa-heart text-lg mr-2"></i>
+                        <span>Like</span>
                     </button>
                     {% endif %}
+                    {% endif %}
                 </form>
-                <small class="text-gray-600"><b>{{blog_obj.likes.count}}</b> Likes</small>
+                <small class="text-gray-600"><b>{{ blog_obj.likes.count }}</b> Likes</small>
             </div>
-            <div class="mb-4">
-                <h6 class="text-xl font-semibold">Comments</h6>
-            </div>
-            <div class="max-h-300px overflow-auto w-250px mb-4">
-                {% for comment in comments %}
-                <div class="mb-4">
-                    <small class="text-gray-600">{{comment.name}}</small>
-                    <p class="mb-2">{{comment.body}}</p>
-                    <small class="text-gray-600">{{comment.date_added}}</small>
+
+            <!-- Comments Section -->
+            <div class="mb-6">
+                <h6 class="text-xl font-semibold mb-4">Comments</h6>
+                <div class="max-h-300px overflow-auto w-full border rounded-lg p-4 bg-gray-50">
+                    {% for comment in comments %}
+                    <div class="mb-4">
+                        <small class="text-gray-600 font-semibold">{{ comment.name }}</small>
+                        <p class="mb-2">{{ comment.body }}</p>
+                        <small class="text-gray-500 text-xs">{{ comment.date_added }}</small>
+                        <hr class="border-t border-gray-200 mt-4">
+                    </div>
+                    {% empty %}
+                    <p class="text-gray-600">No comments yet. Be the first to comment!</p>
+                    {% endfor %}
                 </div>
-                <hr class="border-t border-gray-200">
-                {% endfor %}
             </div>
+
+            <!-- Comment Form -->
             {% if request.user.is_authenticated %}
-            <form method="POST">
+            <form method="POST" class="mb-4">
                 {% csrf_token %}
-                <input type="text" required class="w-full p-2 rounded border border-gray-300 focus:outline-none focus:ring focus:border-gray-400"
-                    placeholder="Enter your comment" name="body">
+                <input type="text" name="body" required
+                    class="w-full p-2 rounded-lg border border-gray-300 focus:outline-none focus:ring focus:border-gray-400 mb-4"
+                    placeholder="Enter your comment">
                 <button type="submit"
-                    class="bg-blue-500 text-white rounded-lg px-4 py-2 mt-4 focus:outline-none hover:bg-blue-600">
-                    Comment
+                    class="bg-blue-500 text-white rounded-full px-4 py-2 focus:outline-none hover:bg-blue-600">
+                    <i class="fa fa-paper-plane mr-2"></i> Comment
                 </button>
             </form>
             {% endif %}

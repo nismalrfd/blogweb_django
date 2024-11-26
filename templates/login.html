@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block start %}
-<div class="min-h-screen flex items-center justify-center bg-gray-100">
+<div class="min-h-screen flex flex-col items-center justify-center bg-white-100">
   <div class="w-full md:w-3/5 xl:w-2/5 p-5">
     <form method="POST" class="bg-white p-8 rounded-lg shadow-md" id="login-form">
       {% csrf_token %}
@@ -21,7 +21,7 @@
         <input id="password" class="form-input w-full px-3 py-2 text-gray-700 border rounded-md focus:outline-none focus:shadow-outline" name="password" id="loginPassword" placeholder="Password" type="password" required>
         <button type="button" id="show-password-button" class="text-blue-500 hover:text-blue-600">Show Password</button>
       </div>
-      <button type="submit"  id="login-button"  disabled class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 w-full rounded-md">Sign in</button>
+      <button type="submit"  id="login-button"  disabled class="bg-blue-600 hover:bg-blue-600 text-white font-bold py-2 px-4 w-full rounded-md">Sign in</button>
       <p class="text-center mt-3">
         <small class="text-gray-700">
           Don't have an account yet? <a href="{% url 'register' %}" class="text-blue-500">Sign Up</a>
@@ -54,7 +54,7 @@ $(document).ready(function() {
       loginButton.css('background-color', 'blue');
     } else {
       loginButton.prop('disabled', true);
-      loginButton.css('background-color','white');
+      loginButton.css('background-color','');
     }
   });
 });

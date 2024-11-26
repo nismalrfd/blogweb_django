@@ -2,34 +2,55 @@
 
 {% block start %}
 <section class="bg-gray-100 min-h-screen flex items-center justify-center">
-  <div class="container mx-auto">
-    <div class="w-full max-w-4xl bg-white rounded-lg shadow p-6 mx-4 sm:mx-auto">
+  <div class="container mx-auto px-4">
+    <div class="bg-white rounded-lg shadow-lg p-6 max-w-4xl mx-auto">
+      
+      <!-- Section Title -->
+      <div class="mb-6">
+        <h2 class="text-2xl font-bold text-gray-800">Your Blog Posts</h2>
+      </div>
 
-      <h2 class="text-2xl font-semibold mb-4">Your Blog Posts</h2>
+      <!-- Blog Table -->
+      <div class="overflow-x-auto">
+        <table class="min-w-full bg-white border border-gray-200 rounded-lg">
+          <!-- Table Head -->
+          <thead class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal sticky top-0 z-10">
+            <tr>
+              <th class="py-3 px-4 text-left">#</th>
+              <th class="py-3 px-4 text-left">Blog Title</th>
+              <th class="py-3 px-4 text-left">Created At</th>
+              <th class="py-3 px-4 text-left">Action</th>
+            </tr>
+          </thead>
 
-      <table class="min-w-full">
-        <thead>
-          <tr>
-            <th class="py-2 px-3 bg-gray-200 text-left">#</th>
-            <th class="py-2 px-3 bg-gray-200 text-left">Blog Title</th>
-            <th class="py-2 px-3 bg-gray-200 text-left">Created At</th>
-            <th class="py-2 px-3 bg-gray-200 text-left">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for blog in blog_objs %}
-          <tr class="hover:bg-gray-50 transition-all">
-            <td class="py-2 px-3">{{ forloop.counter }}</td>
-            <td class="py-2 px-3">{{ blog.title }}</td>
-            <td class="py-2 px-3">{{ blog.created_at }}</td>
-            <td class="py-2 px-3">
-              <a href="{% url 'update-blog' blog.id %}" class="bg-green-500 hover:bg-green-600 text-white rounded-md px-4 py-2 mx-1">Update</a>
-              <a href="{% url 'delete-blog' blog.id %}" class="bg-red-500 hover:bg-red-600 text-white rounded-md px-4 py-2 mx-1">Delete</a>
-            </td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+          <!-- Table Body -->
+          <tbody class="text-gray-700 text-sm">
+            {% for blog in blog_objs %}
+            <tr class="border-b border-gray-200 hover:bg-gray-50 transition duration-200">
+              <td class="py-3 px-4">{{ forloop.counter }}</td>
+              <td class="py-3 px-4">{{ blog.title }}</td>
+              <td class="py-3 px-4">{{ blog.created_at }}</td>
+              <td class="py-3 px-4">
+                <a href="{% url 'update-blog' blog.id %}" 
+                   class="bg-green-500 hover:bg-green-600 text-white rounded-md px-3 py-2 transition duration-200">
+                  Update
+                </a>
+                <a href="{% url 'delete-blog' blog.id %}" 
+                   class="bg-red-500 hover:bg-red-600 text-white rounded-md px-3 py-2 transition duration-200">
+                  Delete
+                </a>
+              </td>
+            </tr>
+            {% empty %}
+            <tr>
+              <td colspan="4" class="py-3 px-4 text-center text-gray-600">
+                No blog posts found. Create a new one!
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </section>
